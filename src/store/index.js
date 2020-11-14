@@ -7,7 +7,11 @@ const state = {
   showNavDrawer: false,
 };
 
-const getters = {};
+const getters = {
+  showNavDrawer(state) {
+    return window.innerWidth >= 960 ? true : state.showNavDrawer;
+  },
+};
 
 const mutations = {
   showNavDrawer(state, { value }) {

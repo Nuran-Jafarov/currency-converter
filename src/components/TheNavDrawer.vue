@@ -24,7 +24,7 @@ export default {
   computed: {
     showNavDrawer: {
       get: function() {
-        return this.$store.state.showNavDrawer;
+        return this.$store.getters.showNavDrawer;
       },
       set: function(newValue) {
         this.$store.commit("showNavDrawer", { value: newValue });
