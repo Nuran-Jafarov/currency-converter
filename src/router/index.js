@@ -5,6 +5,15 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    name: "Home",
+    path: "/",
+    meta: {
+      name: "Converter",
+      showInNavDrawer: true,
+    },
+    component: () => import(/* webpackChunkName: "Home" */ "@/views/Home"),
+  },
+  {
     name: "NotFound",
     path: "/not-found",
     alias: "*",
