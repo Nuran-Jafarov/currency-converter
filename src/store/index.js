@@ -3,11 +3,17 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-const state = {};
+const state = {
+  showNavDrawer: false,
+};
 
 const getters = {};
 
-const mutations = {};
+const mutations = {
+  showNavDrawer(state, { value }) {
+    state.showNavDrawer = value;
+  },
+};
 
 const actions = {};
 
