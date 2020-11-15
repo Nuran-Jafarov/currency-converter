@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import converter from "./modules/converter";
+
 Vue.use(Vuex);
 
 const state = {
@@ -21,7 +23,7 @@ const mutations = {
 
 const actions = {};
 
-const modules = {};
+const modules = { converter };
 
 export default new Vuex.Store({
   state,
