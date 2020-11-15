@@ -8,7 +8,7 @@ const state = {
 };
 
 const getters = {
-  getRates: (state) => (date = "latest") => {
+  rates: (state) => (date = "latest") => {
     if (date === "latest") return state.rates[state.latestDate];
     else return state.rates[date];
   },
@@ -26,7 +26,7 @@ const mutations = {
 };
 
 const actions = {
-  async fetchRates({ state, commit }, date = "latest") {
+  async getRates({ state, commit }, date = "latest") {
     if (date === "latest" && state.latestDate !== null) return;
     if (date in state.rates) return;
 
