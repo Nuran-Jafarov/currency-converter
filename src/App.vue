@@ -11,12 +11,19 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 import TheAppBar from "@/components/TheAppBar";
 import TheNavDrawer from "@/components/TheNavDrawer";
 
 export default {
   name: "App",
-
   components: { TheAppBar, TheNavDrawer },
+  methods: {
+    ...mapActions(["getCurrencies"]),
+  },
+  created() {
+    this.getCurrencies();
+  },
 };
 </script>
