@@ -3,7 +3,7 @@ import axios from "@/axios";
 const namespaced = true;
 
 const state = {
-  latestDate: "",
+  latestDate: null,
   rates: {},
 };
 
@@ -26,7 +26,10 @@ const mutations = {
 };
 
 const actions = {
-  async getRates({ commit }, date = "latest") {
+  async fetchRates({ state, commit }, date = "latest") {
+    if (date === "latest" && state.latestDate !== null) return;
+    if (date in state.rates) return;
+
     const data = await axios.get(date).then((response) => response.data);
 
     commit("updateRates", data);
