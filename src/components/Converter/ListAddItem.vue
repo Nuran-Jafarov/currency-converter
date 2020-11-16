@@ -3,11 +3,6 @@
     <v-card>
       <v-card-title class="headline">
         Add
-        <v-spacer></v-spacer>
-
-        <v-btn icon @click="addSelectedCurrencyCode({ code: selected })">
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
       </v-card-title>
 
       <v-card-subtitle>
@@ -18,6 +13,7 @@
         <v-autocomplete
           v-model="selected"
           :items="selectItems"
+          @change="changed"
           outlined
         ></v-autocomplete>
       </v-card-text>
@@ -48,6 +44,9 @@ export default {
   },
   methods: {
     ...mapMutations("converter", ["addSelectedCurrencyCode"]),
+    changed() {
+      this.addSelectedCurrencyCode({ code: this.selected });
+    },
   },
 };
 </script>
