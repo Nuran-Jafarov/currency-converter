@@ -22,6 +22,7 @@
       :max="latestDate"
       :show-current="false"
       @input="menu = false"
+      scrollable
     ></v-date-picker>
   </v-menu>
 </template>
