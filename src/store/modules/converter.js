@@ -3,6 +3,7 @@ import axios from "@/axios";
 const namespaced = true;
 
 const state = {
+  baseCurrency: {},
   latestDate: null,
   rates: {},
   selectedCurrencyCodes: [],
@@ -39,6 +40,15 @@ const getters = {
           currency.code in state.rates[date]
       );
   },
+  calculateAmount: (state) => (to) => {
+    const rate =
+      state.rates[state.latestDate][to] /
+      state.rates[state.latestDate][state.baseCurrency.code];
+    return Math.round(rate * state.baseCurrency.amount * 10000) / 10000;
+  },
+  baseCurrencyCode(state) {
+    return state.baseCurrency.code;
+  },
 };
 
 const mutations = {
@@ -52,6 +62,15 @@ const mutations = {
   },
   addSelectedCurrencyCode(state, { code }) {
     state.selectedCurrencyCodes.push(code);
+  },
+  removeSelectedCurrencyCode(state, { code }) {
+    const index = state.selectedCurrencyCodes.indexOf(code);
+    if (index !== -1) {
+      state.selectedCurrencyCodes.splice(index, 1);
+    }
+  },
+  modifyBaseCurrency(state, { code, amount }) {
+    state.baseCurrency = { code, amount };
   },
 };
 
