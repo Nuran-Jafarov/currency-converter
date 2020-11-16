@@ -7,7 +7,6 @@
       :description="currency.description"
     >
     </ConverterListItem>
-    <ConverterListAddItem></ConverterListAddItem>
   </v-row>
 </template>
 
@@ -15,11 +14,10 @@
 import { mapGetters, mapActions } from "vuex";
 
 import ConverterListItem from "@/components/Converter/ListItem";
-import ConverterListAddItem from "@/components/Converter/ListAddItem";
 
 export default {
   name: "ConverterList",
-  components: { ConverterListItem, ConverterListAddItem },
+  components: { ConverterListItem },
   computed: {
     ...mapGetters("converter", ["selectedCurrencies"]),
   },

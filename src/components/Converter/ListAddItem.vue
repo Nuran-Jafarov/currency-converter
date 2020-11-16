@@ -1,24 +1,12 @@
 <template>
-  <v-col class="pa-3" cols="4">
-    <v-card>
-      <v-card-title class="headline">
-        Add
-      </v-card-title>
-
-      <v-card-subtitle>
-        Select the currency you want to add to the converter
-      </v-card-subtitle>
-
-      <v-card-text>
-        <v-autocomplete
-          v-model="selected"
-          :items="selectItems"
-          @change="changed"
-          outlined
-        ></v-autocomplete>
-      </v-card-text>
-    </v-card>
-  </v-col>
+  <v-autocomplete
+    v-model="selected"
+    :items="selectItems"
+    @change="changed"
+    outlined
+    label="Add a currency to the converter"
+    prepend-inner-icon="mdi-cash"
+  ></v-autocomplete>
 </template>
 
 <script>
