@@ -17,7 +17,7 @@ const getters = {
     else return [];
   },
   currenciesOfDate: (state, getters) => {
-    return Object.keys(getters["rates"]);
+    return Object.keys(getters.rates);
   },
   selectedCurrencies(state, getters, rootState) {
     return rootState.availableCurrencies.filter((currency) =>
@@ -28,12 +28,13 @@ const getters = {
     return rootState.availableCurrencies.filter(
       (currency) =>
         !state.selectedCurrencyCodes.includes(currency.code) &&
-        currency.code in getters["rates"]
+        currency.code in getters.rates
     );
   },
   calculateAmount: (state, getters) => (to) => {
-    const rate =
-      getters["rates"][to] / getters["rates"][state.baseCurrency.code];
+    if (!(state.baseCurrency.code in getters.rates)) return "";
+
+    const rate = getters.rates[to] / getters.rates[state.baseCurrency.code];
     return Math.round(rate * state.baseCurrency.amount * 10000) / 10000;
   },
   baseCurrencyCode(state) {

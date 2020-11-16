@@ -13,7 +13,11 @@
       <v-card-subtitle>{{ description }}</v-card-subtitle>
 
       <v-card-text>
-        <v-text-field v-model.number="amount" outlined></v-text-field>
+        <v-text-field
+          v-model.number="amount"
+          :disabled="!isRateAvailable"
+          outlined
+        ></v-text-field>
       </v-card-text>
     </v-card>
   </v-col>
@@ -33,10 +37,15 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("converter", ["calculateAmount"]),
+    ...mapGetters("converter", ["calculateAmount", "rates"]),
     ...mapState("converter", ["baseCurrency"]),
+    isRateAvailable() {
+      return this.code in this.rates;
+    },
     amount: {
       get() {
+        if (!this.isRateAvailable) return "Not avaliable for this date";
+
         if (this.baseCurrency.code) {
           if (this.code === this.baseCurrency.code)
             return this.baseCurrency.amount;
