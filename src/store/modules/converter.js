@@ -51,7 +51,8 @@ const mutations = {
     state.latestDate = date;
   },
   addSelectedCurrencyCode(state, { code }) {
-    state.selectedCurrencyCodes.push(code);
+    if (!state.selectedCurrencyCodes.includes(code))
+      state.selectedCurrencyCodes.push(code);
   },
   removeSelectedCurrencyCode(state, { code }) {
     const index = state.selectedCurrencyCodes.indexOf(code);
