@@ -10,10 +10,11 @@
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
         v-model="date"
-        prepend-icon="mdi-calendar"
-        readonly
         v-bind="attrs"
         v-on="on"
+        readonly
+        outlined
+        prepend-inner-icon="mdi-calendar"
       ></v-text-field>
     </template>
     <v-date-picker
