@@ -5,45 +5,35 @@ const namespaced = true;
 const state = {
   baseCurrency: {},
   latestDate: null,
-  rates: {},
+  selectedDate: null,
+  ratesAll: {},
   selectedCurrencyCodes: [],
 };
 
 const getters = {
-  rates: (state) => (date = "latest") => {
-    if (date === "latest") return state.rates[state.latestDate];
-    else return state.rates[date];
+  rates: (state) => {
+    if (state.selectedDate in state.ratesAll)
+      return state.ratesAll[state.selectedDate];
+    else return [];
   },
-  currenciesOfDate: (state) => (date = "latest") => {
-    try {
-      if (date === "latest") return Object.keys(state.rates[state.latestDate]);
-      else return Object.keys(state.rates[date]);
-    } catch {
-      return [];
-    }
+  currenciesOfDate: (state, getters) => {
+    return Object.keys(getters["rates"]);
   },
   selectedCurrencies(state, getters, rootState) {
     return rootState.availableCurrencies.filter((currency) =>
       state.selectedCurrencyCodes.includes(currency.code)
     );
   },
-  notSelectedCurrenciesOfDate: (state, getters, rootState) => (
-    date = "latest"
-  ) => {
-    date = date === "latest" ? state.latestDate : date;
-
-    if (!(date in state.rates)) return [];
-    else
-      return rootState.availableCurrencies.filter(
-        (currency) =>
-          !state.selectedCurrencyCodes.includes(currency.code) &&
-          currency.code in state.rates[date]
-      );
+  notSelectedCurrenciesOfDate: (state, getters, rootState) => {
+    return rootState.availableCurrencies.filter(
+      (currency) =>
+        !state.selectedCurrencyCodes.includes(currency.code) &&
+        currency.code in getters["rates"]
+    );
   },
-  calculateAmount: (state) => (to) => {
+  calculateAmount: (state, getters) => (to) => {
     const rate =
-      state.rates[state.latestDate][to] /
-      state.rates[state.latestDate][state.baseCurrency.code];
+      getters["rates"][to] / getters["rates"][state.baseCurrency.code];
     return Math.round(rate * state.baseCurrency.amount * 10000) / 10000;
   },
   baseCurrencyCode(state) {
@@ -55,7 +45,7 @@ const mutations = {
   updateRates(state, { date, rates }) {
     if ("AMD" in rates) delete rates["AMD"];
 
-    state.rates[date] = rates;
+    state.ratesAll[date] = rates;
   },
   updateLatestDate(state, { date }) {
     state.latestDate = date;
@@ -72,18 +62,23 @@ const mutations = {
   modifyBaseCurrency(state, { code, amount }) {
     state.baseCurrency = { code, amount };
   },
+  modifySelectedDate(state, { date }) {
+    state.selectedDate = date;
+  },
 };
 
 const actions = {
   async getRates({ state, commit }, date = "latest") {
     if (date === "latest" && state.latestDate !== null) return;
-    if (date in state.rates) return;
+    if (date in state.ratesAll) return;
 
     const data = await axios.get(date).then((response) => response.data);
 
     commit("updateRates", data);
 
     if (date === "latest") commit("updateLatestDate", data);
+
+    if (!state.selectedDate) commit("modifySelectedDate", data);
   },
 };
 

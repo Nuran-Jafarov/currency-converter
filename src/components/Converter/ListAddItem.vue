@@ -38,9 +38,7 @@ export default {
   computed: {
     ...mapGetters("converter", ["notSelectedCurrenciesOfDate"]),
     selectItems() {
-      const currencies = this.notSelectedCurrenciesOfDate();
-
-      return currencies.map((currency) => {
+      return this.notSelectedCurrenciesOfDate.map((currency) => {
         return {
           text: `${currency.code} - ${currency.description}`,
           value: currency.code,
