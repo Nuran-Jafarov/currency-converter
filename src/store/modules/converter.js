@@ -62,6 +62,10 @@ const mutations = {
     if (index !== -1) {
       state.selectedCurrencyCodes.splice(index, 1);
     }
+
+    if (code === state.baseCurrency.code) {
+      state.baseCurrency = {};
+    }
   },
   modifyBaseCurrency(state, { code, amount }) {
     state.baseCurrency = { code, amount };
