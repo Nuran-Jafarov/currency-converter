@@ -19,10 +19,7 @@
           outlined
           hide-details
         ></v-text-field>
-        <v-card-subtitle
-          v-if="isRateAvailable && baseCurrency.code"
-          class="pb-0 px-0"
-        >
+        <v-card-subtitle class="pb-0 px-0" :class="cardSubtitleClasses">
           1 {{ baseCurrency.code }} = {{ calculateRate(code) }} {{ code }}
         </v-card-subtitle>
       </v-card-text>
@@ -66,6 +63,11 @@ export default {
       set(amount) {
         this.modifyBaseCurrency({ code: this.code, amount });
       },
+    },
+    cardSubtitleClasses() {
+      return {
+        "transparent--text": !this.isRateAvailable || this.isBaseCurrency,
+      };
     },
   },
   methods: {
