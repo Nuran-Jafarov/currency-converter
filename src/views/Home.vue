@@ -1,7 +1,9 @@
 <template>
   <div>
-    <ConverterDatePicker></ConverterDatePicker>
-    <ConverterListAddItem></ConverterListAddItem>
+    <v-row>
+      <ConverterListAddItem></ConverterListAddItem>
+      <ConverterDatePicker></ConverterDatePicker>
+    </v-row>
     <ConverterList></ConverterList>
   </div>
 </template>

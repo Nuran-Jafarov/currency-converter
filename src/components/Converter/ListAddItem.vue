@@ -1,13 +1,15 @@
 <template>
-  <v-autocomplete
-    v-model="selected"
-    :items="selectItems"
-    @change="changed"
-    outlined
-    hide-details
-    label="Add a currency to the converter"
-    prepend-inner-icon="mdi-cash"
-  ></v-autocomplete>
+  <v-col cols="12" md="6" lg="4">
+    <v-autocomplete
+      v-model="selected"
+      :items="selectItems"
+      @change="changed"
+      outlined
+      hide-details
+      label="Add a currency to the converter"
+      prepend-inner-icon="mdi-cash"
+    ></v-autocomplete>
+  </v-col>
 </template>
 
 <script>
