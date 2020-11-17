@@ -44,8 +44,8 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("converter", ["calculateAmount", "calculateRate", "rates"]),
-    ...mapState("converter", ["baseCurrency"]),
+    ...mapGetters(["calculateAmount", "calculateRate", "rates"]),
+    ...mapState(["baseCurrency"]),
     isRateAvailable() {
       return this.code in this.rates;
     },
@@ -69,10 +69,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("converter", [
-      "modifyBaseCurrency",
-      "removeSelectedCurrencyCode",
-    ]),
+    ...mapMutations(["modifyBaseCurrency", "removeSelectedCurrencyCode"]),
     remove() {
       this.$emit("remove");
     },

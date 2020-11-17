@@ -19,10 +19,10 @@ export default {
   name: "ConverterList",
   components: { ConverterListItem },
   computed: {
-    ...mapGetters("converter", ["selectedCurrencies"]),
+    ...mapGetters(["selectedCurrencies"]),
   },
   methods: {
-    ...mapActions("converter", ["getRates"]),
+    ...mapActions(["getRates"]),
   },
   created() {
     this.getRates();

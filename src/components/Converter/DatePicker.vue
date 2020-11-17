@@ -42,7 +42,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("converter", ["selectedDate", "latestDate"]),
+    ...mapState(["selectedDate", "latestDate"]),
     date: {
       get() {
         return this.selectedDate;
@@ -54,8 +54,8 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("converter", ["modifySelectedDate"]),
-    ...mapActions("converter", ["getRates"]),
+    ...mapMutations(["modifySelectedDate"]),
+    ...mapActions(["getRates"]),
   },
 };
 </script>

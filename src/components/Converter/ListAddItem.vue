@@ -23,7 +23,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("converter", ["notSelectedCurrenciesOfDate"]),
+    ...mapGetters(["notSelectedCurrenciesOfDate"]),
     selectItems() {
       return this.notSelectedCurrenciesOfDate.map((currency) => {
         return {
@@ -34,7 +34,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations("converter", ["addSelectedCurrencyCode"]),
+    ...mapMutations(["addSelectedCurrencyCode"]),
     changed() {
       this.addSelectedCurrencyCode({ code: this.selected });
     },
