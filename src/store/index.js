@@ -8,20 +8,12 @@ import converter from "./modules/converter";
 Vue.use(Vuex);
 
 const state = {
-  showNavDrawer: false,
   availableCurrencies: [],
 };
 
-const getters = {
-  showNavDrawer(state) {
-    return window.innerWidth >= 960 ? true : state.showNavDrawer;
-  },
-};
+const getters = {};
 
 const mutations = {
-  showNavDrawer(state, { value }) {
-    state.showNavDrawer = value;
-  },
   setCurrencies(state, { currencies }) {
     if ("AMD" in currencies) delete currencies["AMD"];
 
