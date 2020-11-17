@@ -31,14 +31,16 @@ const getters = {
         currency.code in getters.rates
     );
   },
-  calculateAmount: (state, getters) => (to) => {
-    if (!(state.baseCurrency.code in getters.rates)) return "";
+  calculateRate: (state, getters) => (to) => {
+    if (!(state.baseCurrency.code in getters.rates)) return false;
 
-    const rate = getters.rates[to] / getters.rates[state.baseCurrency.code];
-    return Math.round(rate * state.baseCurrency.amount * 10000) / 10000;
+    return getters.rates[to] / getters.rates[state.baseCurrency.code];
   },
-  baseCurrencyCode(state) {
-    return state.baseCurrency.code;
+  calculateAmount: (state, getters) => (to) => {
+    const rate = getters.calculateRate(to);
+    if (!rate) return "";
+
+    return Math.round(rate * state.baseCurrency.amount * 10000) / 10000;
   },
 };
 

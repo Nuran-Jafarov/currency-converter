@@ -19,6 +19,12 @@
           outlined
           hide-details
         ></v-text-field>
+        <v-card-subtitle
+          v-if="isRateAvailable && baseCurrency.code"
+          class="pb-0 px-0"
+        >
+          1 {{ baseCurrency.code }} = {{ calculateRate(code) }} {{ code }}
+        </v-card-subtitle>
       </v-card-text>
     </v-card>
   </v-col>
@@ -38,18 +44,20 @@ export default {
     },
   },
   computed: {
-    ...mapGetters("converter", ["calculateAmount", "rates"]),
+    ...mapGetters("converter", ["calculateAmount", "calculateRate", "rates"]),
     ...mapState("converter", ["baseCurrency"]),
     isRateAvailable() {
       return this.code in this.rates;
+    },
+    isBaseCurrency() {
+      return this.code === this.baseCurrency.code;
     },
     amount: {
       get() {
         if (!this.isRateAvailable) return "Not avaliable for this date";
 
         if (this.baseCurrency.code) {
-          if (this.code === this.baseCurrency.code)
-            return this.baseCurrency.amount;
+          if (this.isBaseCurrency) return this.baseCurrency.amount;
           else return this.calculateAmount(this.code);
         }
 
