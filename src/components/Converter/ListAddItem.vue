@@ -4,6 +4,7 @@
     :items="selectItems"
     @change="changed"
     outlined
+    hide-details
     label="Add a currency to the converter"
     prepend-inner-icon="mdi-cash"
   ></v-autocomplete>

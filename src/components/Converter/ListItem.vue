@@ -17,6 +17,7 @@
           v-model.number="amount"
           :disabled="!isRateAvailable"
           outlined
+          hide-details
         ></v-text-field>
       </v-card-text>
     </v-card>

@@ -14,6 +14,7 @@
         v-on="on"
         readonly
         outlined
+        hide-details
         prepend-inner-icon="mdi-calendar"
       ></v-text-field>
     </template>
